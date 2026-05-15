@@ -285,6 +285,173 @@ document.querySelectorAll('.counter').forEach(el => observer.observe(el));
 
     </style>
 </head>
+    <div id="vantage-intro">
+    <div class="intro-content">
+        
+        <div class="intro-logo-vec">
+            <div class="v-left-reveal"></div>
+            <div class="v-right-reveal"></div>
+        </div>
+
+        <div class="intro-text-reveal">
+            <h1 class="brand-name-reveal">Vantage</h1>
+            <div class="brand-tag-reveal">Intelligence</div>
+        </div>
+        
+        <div class="scanline"></div>
+    </div>
+</div>
+
+<style>
+    /* =========================================
+       INTRO ANIMATION CSS
+       (Add this to your <style> section)
+       ========================================= */
+
+    /* The Main Overlay */
+    #vantage-intro {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000000; /* Deep space black */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999; /* Highest priority */
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 1s ease-out, visibility 1s; /* Dissolve out */
+        overflow: hidden;
+    }
+
+    #vantage-intro.loaded {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .intro-content {
+        position: relative;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* --- THE LOGO V REVEAL --- */
+    .intro-logo-vec {
+        position: relative;
+        width: 180px;
+        height: 130px;
+        margin-bottom: 20px;
+        opacity: 0;
+        transform: scale(0.8);
+        animation: logoPopIn 1.5s ease-out forwards;
+        animation-delay: 0.5s;
+    }
+
+    .v-left-reveal, .v-right-reveal {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #314a63; /* Original Logo Blue */
+        box-shadow: 0 0 15px rgba(49, 74, 99, 0.4); /* Subtle Glow */
+    }
+
+    .v-left-reveal {
+        clip-path: polygon(0 0, 35% 0, 58% 75%, 45% 75%);
+    }
+
+    .v-right-reveal {
+        clip-path: polygon(45% 75%, 85% 15%, 80% 12%, 100% 0, 92% 25%, 88% 22%, 58% 75%);
+        left: 2px; /* Precision alignment */
+    }
+
+    @keyframes logoPopIn {
+        0% { opacity: 0; transform: scale(0.8); }
+        50% { opacity: 1; transform: scale(1.05); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* --- THE TEXT REVEAL --- */
+    .intro-text-reveal {
+        color: #314a63;
+        text-transform: uppercase;
+        overflow: hidden; /* For the slide-up effect */
+    }
+
+    .brand-name-reveal {
+        font-size: 52px;
+        font-weight: 800;
+        letter-spacing: 8px;
+        margin: 0;
+        opacity: 0;
+        transform: translateY(100%);
+        animation: textSlideUp 1s ease-out forwards;
+        animation-delay: 1.2s; /* Reveals after the logo */
+    }
+
+    .brand-tag-reveal {
+        font-size: 16px;
+        letter-spacing: 6px;
+        margin-top: 10px;
+        opacity: 0;
+        transform: translateY(100%);
+        animation: textSlideUp 1s ease-out forwards;
+        animation-delay: 1.5s; /* Reveals last */
+    }
+
+    @keyframes textSlideUp {
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- THE TECH EFFECTS --- */
+    .scanline {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(
+            to bottom,
+            rgba(255,255,255,0) 0%,
+            rgba(49, 74, 99, 0.05) 10%,
+            rgba(255,255,255,0) 20%
+        );
+        background-size: 100% 10px;
+        animation: scanlineScroll 0.5s linear infinite;
+        opacity: 0.1;
+        pointer-events: none;
+    }
+
+    @keyframes scanlineScroll {
+        0% { background-position: 0 0; }
+        100% { background-position: 0 10px; }
+    }
+
+</style>
+
+<script>
+    /* =========================================
+       INTRO TRIGGER JS
+       (Add this to your main <script> tag)
+       ========================================= */
+    window.addEventListener('load', function() {
+        // Find the intro overlay
+        const intro = document.getElementById('vantage-intro');
+        
+        // Wait for the animation sequence to finish (approx 3 seconds)
+        setTimeout(() => {
+            // Add the class that triggers the fade-out CSS
+            intro.classList.add('loaded');
+            
+            // Optional: Completely remove the element from the DOM after it fades
+            setTimeout(() => {
+                intro.remove();
+            }, 1000); // Must match the CSS transition time
+            
+        }, 3200); // The duration the intro stays visible
+    });
+</script>
+
 <body>
 
     <header class="header-logo">
